@@ -66,6 +66,8 @@ if __name__ == '__main__':
         print("YES")
     else:
         print("NO")
+
+        
     assert not main([[1, 1, 1]] * 3)
     assert main([[2, 1, 1], [1, 1, 2], [2, 2, 1]])
     assert main([[1, 1, 1], [2, 0, 2], [0, 0, 0]])
