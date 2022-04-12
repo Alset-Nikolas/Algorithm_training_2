@@ -1,4 +1,5 @@
 import copy
+from pprint import pprint
 
 
 def calc_all_combination(list_max_index):
@@ -53,8 +54,8 @@ def find_optimal(n, words):
         for index_word in range(len(list_index)):
             index = list_index[index_word]
             for x, y in words[index_word][index]:
-                if info_i[x][y] is not None:
-                    info_i[x][y] = None
+                if info_i[x][y] is not None or info_i[x][y].isdigit():
+                    info_i[x][y] = index_word
                 else:
                     flag = False
                     break
@@ -129,17 +130,21 @@ def find_word(simvols_word, start_indexs, ans, pref=None):
 
 
 if __name__ == '__main__':
-    n, k = list(map(int, input().split()))
+    print("Найти слова по буквам в квадрате NxN")
+    n = int(input("N = "))
+    k = int(input("Всего слов K = "))
+    print("Напишите в 1 строку содержание каждой строки")
     info = [[None for x in range(n + 1)] for x in range(n + 2)]
     for i in range(n):
         info[i + 1][1:-1] = [x for x in input()]
+    print("Напишите слова которые нужно найти. Каждое слово в новой строке")
     words = [[x for x in input()] for x in range(k)]
     words = start_find_words(words)
     res = find_optimal(n, words)
-    ans = list()
-    for line in res:
-        for el in line:
-            if el is not None:
-                ans.append(el)
-    for el in ans:
-        print(el, end="")
+    print("Решение:")
+    print("Каждая цифра означает соответсвующее слово")
+    for line in res[1:-1]:
+        for el in line[1:-1]:
+            print(el, end=" ")
+        print("")
+
